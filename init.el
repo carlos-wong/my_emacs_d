@@ -1,4 +1,4 @@
-;(require 'xcscope)
+(require 'xcscope)
 (global-set-key[f5] 'compile)
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/eim")
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
@@ -23,17 +23,33 @@
 (global-set-key (kbd "C-x g") 'grep)
 ;; 
 (setq rj-ring-length 10000)
+
+(setq rj-ring-length 10000)
+(require 'recent-jump)
+(global-set-key (kbd "C-o") 'recent-jump-backward)
+(global-set-key (kbd "C-i") 'recent-jump-forward)
+
+
 ;(require 'recent-jump)
-;(global-set-key (kbd "C-o") 'recent-jump-backward)
-;(global-set-key (kbd "C-i") 'recent-jump-forward)
+;(require 'recent-jump-small)
 ; 
-;(add-to-list 'load-path
-;              "~/.emacs.d/plugins/yasnippet")
-;(require 'yasnippet)
-;(recent-jump-mode 1)
-;(show-paren-mode 1)
+;(setq rj-mode-line-format nil)
+;(setq rjs-mode-line-format nil)
 ; 
-;(setq diary-file "~/journal/diary")
+;(recent-jump-mode)
+;(recent-jump-small-mode)
+; 
+;(let ((map global-map)
+;      (key-pairs
+;       `(("M-,"   recent-jump-backward)
+;         ("M-."   recent-jump-forward)
+;         ("C-x ," recent-jump-small-backward)
+;         ("C-x ." recent-jump-small-forward))))
+;  (apply-define-key map key-pairs))
+; 
+;(provide 'recent-jump-settings)
+
+
  
 ;;(setq org-agenda-files (list "~/journal/*.org"))
 (setq org-agenda-files (file-expand-wildcards "~/journal/*.org"))
@@ -106,9 +122,29 @@
 (setq initial-frame-alist '((top . 0) (left . 0) (width . 1000) (height . 1000)));启动自动最大化
 ;(yas-minor-mode 1)
 ; 
-;(setq compilation-scroll-output t)
-;(add-to-list 'load-path "~/.emacs.d/plugins/color-theme-6.6.0")
-;(require 'color-theme)
-;(color-theme-initialize)
-;(color-theme-emacs-nw) 
+(setq compilation-scroll-output t)
+(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-dark-blue2) 
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
+;(autoload 'gtags-mode "gtags" "" t)
+; (setq c-mode-hook
+;          '(lambda ()
+;              (gtags-mode 1)
+;      ))
+; (setq c++-mode-hook
+;          '(lambda ()
+;              (gtags-mode 1)
+;      ))
+(ido-mode t)
+
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+;                  ; when Smex is auto-initialized on its first run.
+;Bind some keys:
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
