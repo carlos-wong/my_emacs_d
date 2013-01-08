@@ -26,33 +26,16 @@
 
 (setq rj-ring-length 10000)
 (require 'recent-jump)
+(recent-jump-mode)
 (global-set-key (kbd "C-o") 'recent-jump-backward)
 (global-set-key (kbd "C-i") 'recent-jump-forward)
 
 
-;(require 'recent-jump)
-;(require 'recent-jump-small)
-; 
-;(setq rj-mode-line-format nil)
-;(setq rjs-mode-line-format nil)
-; 
-;(recent-jump-mode)
-;(recent-jump-small-mode)
-; 
-;(let ((map global-map)
-;      (key-pairs
-;       `(("M-,"   recent-jump-backward)
-;         ("M-."   recent-jump-forward)
-;         ("C-x ," recent-jump-small-backward)
-;         ("C-x ." recent-jump-small-forward))))
-;  (apply-define-key map key-pairs))
-; 
-;(provide 'recent-jump-settings)
 
 
  
 ;;(setq org-agenda-files (list "~/journal/*.org"))
-(setq org-agenda-files (file-expand-wildcards "~/journal/*.org"))
+(setq org-agenda-files (file-expand-wildcards "/mnt/hgfs/Document/journal/*.org"))
 (mouse-avoidance-mode 'animate)
 ;;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。
 ;;;
@@ -64,11 +47,19 @@
 (cua-mode 1)
 (setq frame-title-format "%f") ; 显示当前编辑的文档
 ;;set ibus-el
-;(add-to-list 'load-path "~/.emacs.d/ibus-el-0.3.2")
-;(require 'ibus)
-;(add-hook 'after-init-hook 'ibus-mode-on)
-;(defun wl-org-agenda-to-appt ()
-;  ;; Dangerous!!!  This might remove entries added by `appt-add' manually. 
+(add-to-list 'load-path "~/.emacs.d/ibus-el-0.3.2")
+
+(require 'ibus)
+;; Turn on ibus-mode automatically after loading .emacs
+(add-hook 'after-init-hook 'ibus-mode-on)
+;; Use C-SPC for Set Mark command
+(ibus-define-common-key ?\C-\s nil)
+;; Use C-/ for Undo command
+(ibus-define-common-key ?\C-/ nil)
+;; Change cursor color depending on IBus status
+;;(setq ibus-cursor-color '("red" "blue" "limegreen"))
+
+ 
 ;  (org-agenda-to-appt t "TODO"))
 ; 
 ;(wl-org-agenda-to-appt)
@@ -126,7 +117,7 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-dark-blue2) 
+(color-theme-gnome) 
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
 ;(autoload 'gtags-mode "gtags" "" t)
 ; (setq c-mode-hook
