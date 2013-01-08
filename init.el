@@ -1,4 +1,4 @@
-(require 'xcscope)
+;(require 'xcscope)
 (global-set-key[f5] 'compile)
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/eim")
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
@@ -24,7 +24,6 @@
 ;; 
 (setq rj-ring-length 10000)
 
-(setq rj-ring-length 10000)
 (require 'recent-jump)
 (recent-jump-mode)
 (global-set-key (kbd "C-o") 'recent-jump-backward)
@@ -35,7 +34,7 @@
 
  
 ;;(setq org-agenda-files (list "~/journal/*.org"))
-(setq org-agenda-files (file-expand-wildcards "/mnt/hgfs/Document/journal/*.org"))
+(setq org-agenda-files (file-expand-wildcards "~/Document/journal/*.org"))
 (mouse-avoidance-mode 'animate)
 ;;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。
 ;;;
@@ -46,71 +45,17 @@
 (linum-mode 1)
 (cua-mode 1)
 (setq frame-title-format "%f") ; 显示当前编辑的文档
-;;set ibus-el
-(add-to-list 'load-path "~/.emacs.d/ibus-el-0.3.2")
-
-(require 'ibus)
-;; Turn on ibus-mode automatically after loading .emacs
-(add-hook 'after-init-hook 'ibus-mode-on)
-;; Use C-SPC for Set Mark command
-(ibus-define-common-key ?\C-\s nil)
-;; Use C-/ for Undo command
-(ibus-define-common-key ?\C-/ nil)
-;; Change cursor color depending on IBus status
-;;(setq ibus-cursor-color '("red" "blue" "limegreen"))
-
- 
-;  (org-agenda-to-appt t "TODO"))
-; 
-;(wl-org-agenda-to-appt)
-;(defadvice  org-agenda-redo (after org-agenda-redo-add-appts)
-;  "Pressing `r' on the agenda will also add appointments."
-;  (progn
-;    (let ((config (current-window-configuration)))
-;      (appt-check t)
-;      (set-window-configuration config))
-;    (wl-org-agenda-to-appt)))
-; 
-;(ad-activate 'org-agenda-redo)
-; 
-; 
-; 
-; 
-;(setq display-time-day-and-date t)
-;(setq display-time-24hr-format t)
-;(display-time)
-; 
-;(setq appt-issue-message t) 
 ; 
 (global-set-key (kbd "C-x t") 'org-clock-in)
 (global-set-key (kbd "C-x s") 'org-clock-out)
 ; 
 ; 
-;;; add pylookup to your loadpath, ex) ~/.emacs.d/pylookup
-;(setq pylookup-dir "~/.emacs.d/pylookup")
-;(add-to-list 'load-path pylookup-dir)
-; 
-;;; load pylookup when compile time
-;(eval-when-compile (require 'pylookup))
-; 
-;;; set executable file and db file
-;(setq pylookup-program (concat pylookup-dir "/pylookup.py"))
-;(setq pylookup-db-file (concat pylookup-dir "/pylookup.db"))
-; 
-;;; set search option if you want
-;;; (setq pylookup-search-options '("--insensitive" "0" "--desc" "0"))
-; 
-;;; to speedup, just load it on demand
-;(autoload 'pylookup-lookup "pylookup"
-;  "Lookup SEARCH-TERM in the Python HTML indexes." t)
-; 
-;(autoload 'pylookup-update "pylookup" 
-;  "Run pylookup-update and create the database at `pylookup-db-file'." t)
+
 (tool-bar-mode nil);去掉那个大大的工具栏
 (scroll-bar-mode nil);去掉滚动条，因为可以使用鼠标滚轮了 ^_^
 (setq default-fill-column 60);默认显示 80列就换行
 ; 
-(setq initial-frame-alist '((top . 0) (left . 0) (width . 1000) (height . 1000)));启动自动最大化
+;(setq initial-frame-alist '((top . 0) (left . 0) (width . 1000) (height . 1000)));启动自动最大化
 ;(yas-minor-mode 1)
 ; 
 (setq compilation-scroll-output t)
