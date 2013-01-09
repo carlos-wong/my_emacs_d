@@ -13,7 +13,7 @@
   (lambda () (setq truncate-lines nil)))
  
 ;;(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
+;;(global-set-key "\C-ca" 'org-agenda)
 ;;(global-set-key "\C-cb" 'org-iswitchb)
 ; 
 ; 
@@ -62,7 +62,8 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-gnome) 
+(color-theme-dark-blue2) 
+ 
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
 ;(autoload 'gtags-mode "gtags" "" t)
 ; (setq c-mode-hook
@@ -86,5 +87,102 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 
+
 (tool-bar-mode nil);去掉那个大大的工具栏
+
+;(require 'ibuffer)
+;(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key [(meta ?/)] 'hippie-expand)
+
+
+(setq hippie-expand-try-functions-list 
+      '(try-expand-dabbrev
+	try-expand-dabbrev-visible
+	try-expand-dabbrev-all-buffers
+	try-expand-dabbrev-from-kill
+	try-complete-file-name-partially
+	try-complete-file-name
+	try-expand-all-abbrevs
+	try-expand-list
+	try-expand-line
+	try-complete-lisp-symbol-partially
+	try-complete-lisp-symbol))
+
+(global-set-key "%" 'match-paren)
+(show-paren-mode t)          
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+		     char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
+
+;(require 'session)
+;  (add-hook 'after-init-hook 'session-initialize)
+
+;(load "desktop") 
+;(desktop-load-default) 
+;(desktop-read)
+
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+;(require  'wcy-desktop)
+;(wcy-desktop-init)
+(load "desktop")
+(desktop-load-default)
+(desktop-read);
+(add-hook 'kill-emacs-hook
+
+          '(lambda()(desktop-save "~/")))
+;; 在退出 emacs 之前确认是否退出
+;;(setq confirm-kill-emacs 'yes-or-no-p)
+
+
+;; author: pluskid
+;; 调用 stardict 的命令行程序 sdcv 来查辞典
+;; 如果选中了 region 就查询 region 的内容，否则查询当前光标所在的单词
+;; 查询结果在一个叫做 *sdcv* 的 buffer 里面显示出来，在这个 buffer 里面
+;; 按 q 可以把这个 buffer 放到 buffer 列表末尾，按 d 可以查询单词
+(global-set-key (kbd "C-c d") 'kid-sdcv-to-buffer)
+(defun kid-sdcv-to-buffer ()
+  (interactive)
+  (let ((word (if mark-active
+                  (buffer-substring-no-properties (region-beginning) (region-end))
+                  (current-word nil t))))
+    (setq word (read-string (format "Search the dictionary for (default %s): " word)
+                            nil nil word))
+    (set-buffer (get-buffer-create "*sdcv*"))
+    (buffer-disable-undo)
+    (erase-buffer)
+    (let ((process (start-process-shell-command "sdcv" "*sdcv*" "sdcv" "-n" word)))
+      (set-process-sentinel
+       process
+       (lambda (process signal)
+         (when (memq (process-status process) '(exit signal))
+           (unless (string= (buffer-name) "*sdcv*")
+             (setq kid-sdcv-window-configuration (current-window-configuration))
+             (switch-to-buffer-other-window "*sdcv*")
+             (local-set-key (kbd "d") 'kid-sdcv-to-buffer)
+             (local-set-key (kbd "q") (lambda ()
+                                        (interactive)
+                                        (bury-buffer)
+                                        (unless (null (cdr (window-list))) ; only one window
+                                          (delete-window)))))
+           (goto-char (point-min))))))))
+
+
 
