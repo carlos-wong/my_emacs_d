@@ -117,7 +117,7 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-dark-blue2) 
+(color-theme-gnome2) 
  
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
 ;(autoload 'gtags-mode "gtags" "" t)
@@ -236,3 +236,9 @@ occurence of CHAR."
            (goto-char (point-min))))))))
 
 
+
+(require 'bash-completion)
+(bash-completion-setup)
+
+(setq make-backup-files nil)
+(setq backup-directory-alist (quote (("." . "~/emacs_edit_backups"))))
