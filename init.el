@@ -51,7 +51,7 @@
 ; 
 ; 
 
-(tool-bar-mode nil);去掉那个大大的工具栏
+
 (scroll-bar-mode nil);去掉滚动条，因为可以使用鼠标滚轮了 ^_^
 (setq default-fill-column 60);默认显示 80列就换行
 ; 
@@ -84,3 +84,7 @@
 ;; This is your old M-x.
 
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+
+(tool-bar-mode nil);去掉那个大大的工具栏
+
