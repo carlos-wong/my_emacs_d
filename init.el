@@ -117,7 +117,8 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-gnome) 
+(color-theme-dark-blue2) 
+ 
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
 ;(autoload 'gtags-mode "gtags" "" t)
 ; (setq c-mode-hook
@@ -190,9 +191,14 @@ occurence of CHAR."
 
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
-(require  'wcy-desktop)
-(wcy-desktop-init)
+;(require  'wcy-desktop)
+;(wcy-desktop-init)
+(load "desktop")
+(desktop-load-default)
+(desktop-read);
+(add-hook 'kill-emacs-hook
 
+          '(lambda()(desktop-save "~/")))
 ;; 在退出 emacs 之前确认是否退出
 ;;(setq confirm-kill-emacs 'yes-or-no-p)
 
