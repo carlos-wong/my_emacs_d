@@ -13,7 +13,7 @@
   (lambda () (setq truncate-lines nil)))
  
 ;;(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
+;;(global-set-key "\C-ca" 'org-agenda)
 ;;(global-set-key "\C-cb" 'org-iswitchb)
 ; 
 ; 
@@ -139,3 +139,61 @@
 ;; This is your old M-x.
 
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;(require 'ibuffer)
+;(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key [(meta ?/)] 'hippie-expand)
+
+
+(setq hippie-expand-try-functions-list 
+      '(try-expand-dabbrev
+	try-expand-dabbrev-visible
+	try-expand-dabbrev-all-buffers
+	try-expand-dabbrev-from-kill
+	try-complete-file-name-partially
+	try-complete-file-name
+	try-expand-all-abbrevs
+	try-expand-list
+	try-expand-line
+	try-complete-lisp-symbol-partially
+	try-complete-lisp-symbol))
+
+(global-set-key "%" 'match-paren)
+(show-paren-mode t)          
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+		     char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
+
+;(require 'session)
+;  (add-hook 'after-init-hook 'session-initialize)
+
+;(load "desktop") 
+;(desktop-load-default) 
+;(desktop-read)
+
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+(require  'wcy-desktop)
+(wcy-desktop-init)
+
+;; 在退出 emacs 之前确认是否退出
+;;(setq confirm-kill-emacs 'yes-or-no-p)
+
+
