@@ -117,7 +117,7 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-gnome2) 
+(color-theme-dark-blue2) 
  
 (global-set-key [C-tab] 'other-window);;切换到另一个窗口，快捷键为C+Tab
 ;(autoload 'gtags-mode "gtags" "" t)
@@ -242,3 +242,13 @@ occurence of CHAR."
 
 (setq make-backup-files nil)
 (setq backup-directory-alist (quote (("." . "~/emacs_edit_backups"))))
+
+
+
+
+;;缺省模式 text-mode
+(setq default-major-mode 'text-mode) 
+;;以空行结束
+(setq require-final-newline t)
+
+(set-default-font "-adobe-Source Code Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
