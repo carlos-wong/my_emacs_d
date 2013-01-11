@@ -1,9 +1,14 @@
 (require 'xcscope)
 (global-set-key[f5] 'compile)
+(global-set-key[f1] 'man)
+(global-set-key[f2] 'find-file)
+
+
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/eim")
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/org-7.9.2")
 (add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/helm/")
 
 (require 'org-install)
 (require 'org-publish)
@@ -251,4 +256,7 @@ occurence of CHAR."
 ;;以空行结束
 (setq require-final-newline t)
 
-(set-default-font "-adobe-Source Code Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+(set-default-font "-adobe-Source Code Pro-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+
+(require 'helm-config)
+(helm-mode 1)
