@@ -260,3 +260,11 @@ occurence of CHAR."
 
 (require 'helm-config)
 (helm-mode 1)
+
+;;代码折叠
+(add-hook 'c-mode-hook 'hs-minor-mode)
+(add-hook 'c++-mode-hook 'hs-minor-mode)  
+(add-hook 'python-mode-hook 'hs-minor-mode)
+
+
+
