@@ -1,7 +1,7 @@
 (require 'xcscope)
 (global-set-key[f5] 'compile)
-(global-set-key[f1] 'man)
-(global-set-key[f2] 'find-file)
+;(global-set-key[f1] 'man)
+;(global-set-key[f2] 'find-file)
 
 
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/eim")
@@ -266,5 +266,8 @@ occurence of CHAR."
 (add-hook 'c++-mode-hook 'hs-minor-mode)  
 (add-hook 'python-mode-hook 'hs-minor-mode)
 
-
+(add-to-list 'load-path "/home/carlos/.emacs.d")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/home/carlos/.emacs.d/ac-dict")
+(ac-config-default)
 
