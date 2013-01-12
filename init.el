@@ -9,6 +9,7 @@
 (add-to-list 'load-path "~/.emacs.d/org-7.9.2")
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/helm/")
+(add-to-list 'load-path "~/.emacs.d/git-emacs")
 
 (require 'org-install)
 (require 'org-publish)
@@ -381,3 +382,5 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 (global-set-key "\M-;" 'qiang-comment-dwim-line)
+
+(require 'git-emacs)
