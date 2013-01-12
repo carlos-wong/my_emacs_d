@@ -288,62 +288,86 @@ occurence of CHAR."
 
 ;; yasnippet
 
-(defface ac-yasnippet-candidate-face
-  '((t (:background "sandybrown" :foreground "black")))
-  "Face for yasnippet candidate."
-  :group 'auto-complete)
+;defface ac-yasnippet-candidate-face
+; '((t (:background "sandybrown" :foreground "black")))
+; "Face for yasnippet candidate."
+; :group 'auto-complete)
+;
+;defface ac-yasnippet-selection-face
+; '((t (:background "coral3" :foreground "white")))
+; "Face for the yasnippet selected candidate."
+; :group 'auto-complete)
+;
+;defun ac-yasnippet-table-hash (table)
+; (cond
+;  ((fboundp 'yas/snippet-table-hash)
+;   (yas/snippet-table-hash table))
+;  ((fboundp 'yas/table-hash)
+;   (yas/table-hash table))))
+;
+;defun ac-yasnippet-table-parent (table)
+; (cond
+;  ((fboundp 'yas/snippet-table-parent)
+;   (yas/snippet-table-parent table))
+;  ((fboundp 'yas/table-parent)
+;   (yas/table-parent table))))
+;
+;defun ac-yasnippet-candidate-1 (table)
+; (with-no-warnings
+;   (let ((hashtab (ac-yasnippet-table-hash table))
+;         (parent (ac-yasnippet-table-parent table))
+;         candidates)
+;     (maphash (lambda (key value)
+;                (push key candidates))
+;              hashtab)
+;     (setq candidates (all-completions ac-prefix (nreverse candidates)))
+;     (if parent
+;         (setq candidates
+;               (append candidates (ac-yasnippet-candidate-1 parent))))
+;     candidates)))
+;
+;defun ac-yasnippet-candidates ()
+; (with-no-warnings
+;   (if (fboundp 'yas/get-snippet-tables)
+;       ;; >0.6.0
+;       (apply 'append (mapcar 'ac-yasnippet-candidate-1 (yas/get-snippet-tables major-mode)))
+;     (let ((table
+;            (if (fboundp 'yas/snippet-table)
+;                ;; <0.6.0
+;                (yas/snippet-table major-mode)
+;              ;; 0.6.0
+;              (yas/current-snippet-table))))
+;       (if table
+;           (ac-yasnippet-candidate-1 table))))))
+;
+;ac-define-source yasnippet
+; '((depends yasnippet)
+;   (candidates . ac-yasnippet-candidates)
+;   (action . yas/expand)
+;   (candidate-face . ac-yasnippet-candidate-face)
+;   (selection-face . ac-yasnippet-selection-face)
+;   (symbol . "a")))
 
-(defface ac-yasnippet-selection-face
-  '((t (:background "coral3" :foreground "white")))
-  "Face for the yasnippet selected candidate."
-  :group 'auto-complete)
+(dolist (command '(yank yank-pop))
+  (eval
+   `(defadvice ,command (after indent-region activate)
+      (and (not current-prefix-arg)
+           (member major-mode
+                   '(emacs-lisp-mode
+                     lisp-mode
+                     clojure-mode
+                     scheme-mode
+                     haskell-mode
+                     ruby-mode
+                     rspec-mode
+                     python-mode
+                     c-mode
+                     c++-mode
+                     objc-mode
+                     latex-mode
+                     js-mode
+                     plain-tex-mode))
+           (let ((mark-even-if-inactive transient-mark-mode))
+             (indent-region (region-beginning) (region-end) nil))))))
 
-(defun ac-yasnippet-table-hash (table)
-  (cond
-   ((fboundp 'yas/snippet-table-hash)
-    (yas/snippet-table-hash table))
-   ((fboundp 'yas/table-hash)
-    (yas/table-hash table))))
 
-(defun ac-yasnippet-table-parent (table)
-  (cond
-   ((fboundp 'yas/snippet-table-parent)
-    (yas/snippet-table-parent table))
-   ((fboundp 'yas/table-parent)
-    (yas/table-parent table))))
-
-(defun ac-yasnippet-candidate-1 (table)
-  (with-no-warnings
-    (let ((hashtab (ac-yasnippet-table-hash table))
-          (parent (ac-yasnippet-table-parent table))
-          candidates)
-      (maphash (lambda (key value)
-                 (push key candidates))
-               hashtab)
-      (setq candidates (all-completions ac-prefix (nreverse candidates)))
-      (if parent
-          (setq candidates
-                (append candidates (ac-yasnippet-candidate-1 parent))))
-      candidates)))
-
-(defun ac-yasnippet-candidates ()
-  (with-no-warnings
-    (if (fboundp 'yas/get-snippet-tables)
-        ;; >0.6.0
-        (apply 'append (mapcar 'ac-yasnippet-candidate-1 (yas/get-snippet-tables major-mode)))
-      (let ((table
-             (if (fboundp 'yas/snippet-table)
-                 ;; <0.6.0
-                 (yas/snippet-table major-mode)
-               ;; 0.6.0
-               (yas/current-snippet-table))))
-        (if table
-            (ac-yasnippet-candidate-1 table))))))
-
-(ac-define-source yasnippet
-  '((depends yasnippet)
-    (candidates . ac-yasnippet-candidates)
-    (action . yas/expand)
-    (candidate-face . ac-yasnippet-candidate-face)
-    (selection-face . ac-yasnippet-selection-face)
-    (symbol . "a")))
