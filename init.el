@@ -286,7 +286,9 @@ occurence of CHAR."
 ;; Ignore case if completion target string doesn't include upper characters
 (setq ac-ignore-case 'smart)
 (add-to-list 'ac-modes 'brandnew-mode)
-
+;; Show 0.8 second later
+(setq ac-auto-show-menu 0.8)
+(setq ac-auto-start 4)
 
 ;; yasnippet
 
