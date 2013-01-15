@@ -193,7 +193,7 @@ occurence of CHAR."
 ;  (add-hook 'after-init-hook 'session-initialize)
 
 ;(load "desktop") 
-;(desktop-load-default) 
+;(desktop-lOad-default) 
 ;(desktop-read)
 
 (require 'session)
@@ -262,6 +262,14 @@ occurence of CHAR."
 
 (require 'helm-config)
 (helm-mode 1)
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map [remap find-file] 'helm-find-files)
+(define-key global-map [remap occur] 'helm-occur)
+(define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+(define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point)
+(add-hook 'kill-emacs-hook #'(lambda () (delete-file "$TMP")))
 
 ;;代码折叠
 (add-hook 'c-mode-hook 'hs-minor-mode)
