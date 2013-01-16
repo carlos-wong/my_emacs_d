@@ -201,12 +201,11 @@ occurence of CHAR."
 (add-hook 'after-init-hook 'session-initialize)
 ;(require  'wcy-desktop)
 ;(wcy-desktop-init)
-(load "desktop")
-(desktop-load-default)
-(desktop-read);
-(add-hook 'kill-emacs-hook
-
-          '(lambda()(desktop-save "~/")))
+;load "desktop")
+;desktop-load-default)
+;desktop-read);
+;add-hook 'kill-emacs-hook
+;	  '(lambda()(desktop-save "~/")))
 ;; 在退出 emacs 之前确认是否退出
 ;;(setq confirm-kill-emacs 'yes-or-no-p)
 
@@ -249,7 +248,7 @@ occurence of CHAR."
 (bash-completion-setup)
 
 (setq make-backup-files nil)
-(setq backup-directory-alist (quote (("." . "~/emacs_edit_backups"))))
+;(setq backup-directory-alist (quote (("." . "~/emacs_edit_backups"))))
 
 
 
@@ -393,5 +392,5 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 (global-set-key "\M-;" 'qiang-comment-dwim-line)
 
 ;(require 'git-emacs)
-;(require 'magit)
-(require 'git)
+(require 'magit)
+;(require 'git)
