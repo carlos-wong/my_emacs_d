@@ -114,6 +114,7 @@
 ;(autoload 'pylookup-update "pylookup" 
 ;  "Run pylookup-update and create the database at `pylookup-db-file'." t)
 (tool-bar-mode nil);去掉那个大大的工具栏
+(menu-bar-mode nil)
 (scroll-bar-mode nil);去掉滚动条，因为可以使用鼠标滚轮了 ^_^
 (setq default-fill-column 60);默认显示 80列就换行
 ; 
@@ -392,4 +393,5 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 (global-set-key "\M-;" 'qiang-comment-dwim-line)
 
 ;(require 'git-emacs)
-(require 'magit)
+;(require 'magit)
+(require 'git)
