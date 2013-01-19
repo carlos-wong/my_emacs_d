@@ -29,7 +29,6 @@
 ; 
 (global-set-key (kbd "C-x g") 'grep)
 ;; 
-(setq rj-ring-length 10000)
 
 (setq rj-ring-length 10000)
 (require 'recent-jump)
@@ -50,7 +49,7 @@
 ;;;让 Emacs 可以直接打开和显示图片
 ; 
 (fset 'yes-or-no-p 'y-or-n-p) ; 将yes/no替换为y/n
-(linum-mode 1)
+(global-linum-mode t)
 (cua-mode 1)
 (setq frame-title-format "%f") ; 显示当前编辑的文档
 ;;set ibus-el
@@ -276,21 +275,21 @@ occurence of CHAR."
 
 
 ;; yasnippet
-(add-to-list 'load-path "~/.emacs.d/yasnippet")
-(require 'yasnippet)
-(setq yas/snippet-dirs '("~/.emacs.d/yasnippet/snippets" "~/.emacs.d/yasnippet/extras/imported"))
-(setq yas/prompt-functions 
-      '(yas/dropdown-prompt yas/x-prompt yas/completing-prompt yas/ido-prompt yas/no-prompt))
-(yas/global-mode 1)
-(yas/minor-mode-on)
+;; (add-to-list 'load-path "~/.emacs.d/yasnippet")
+;; (require 'yasnippet)
+;; (setq yas/snippet-dirs '("~/.emacs.d/yasnippet/snippets" "~/.emacs.d/yasnippet/extras/imported"))
+;; (setq yas/prompt-functions 
+;;       '(yas/dropdown-prompt yas/x-prompt yas/completing-prompt yas/ido-prompt yas/no-prompt))
+;; (yas/global-mode 1)
+;; (yas/minor-mode-on)
 
 ;//(add-to-list 'load-path "/home/carlos/.emacs.d")
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "/home/carlos/.emacs.d/ac-dict")
 (ac-config-default)
 ;; Ignore case if completion target string doesn't include upper characters
-(setq ac-ignore-case 'smart)
-(add-to-list 'ac-modes 'brandnew-mode)
+;; (setq ac-ignore-case 'smart)
+;; (add-to-list 'ac-modes 'brandnew-mode)
 ;; Show 0.8 second later
 (setq ac-auto-show-menu 0.8)
 (setq ac-auto-start 4)
@@ -394,3 +393,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 ;(require 'git-emacs)
 (require 'magit)
 ;(require 'git)
+(defun insert-current_time ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S" (current-time))))
+
